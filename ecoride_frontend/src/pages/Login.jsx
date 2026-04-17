@@ -20,6 +20,9 @@ function Login() {
       if (!res.ok) {
         throw new Error(data.detail || "Login failed");
       }
+      if (!data.token || !data.user_id) {
+        throw new Error("Invalid login response from server");
+      }
       localStorage.setItem("token", data.token);
       localStorage.setItem("userId", data.user_id);
       localStorage.setItem("role", "user");
@@ -30,22 +33,47 @@ function Login() {
   };
 
   return (
-    <div className="auth-container" style={{ padding: "2rem", maxWidth: "400px", margin: "0 auto" }}>
-      <h2>User Login</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1rem" }}>
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required style={{ padding: "0.5rem" }} />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required style={{ padding: "0.5rem" }} />
-        <button type="submit" style={{ padding: "0.5rem", background: "#4caf50", color: "#fff", border: "none" }}>
-          Login
-        </button>
-      </form>
-      <p style={{ marginTop: "1rem" }}>
-        Don't have an account? <Link to="/signup">Sign Up</Link>
-      </p>
-      <p>
-        Are you an admin? <Link to="/admin/login">Admin Login</Link>
-      </p>
+    <div className="auth-page">
+      <div className="auth-card">
+        <h2>Welcome Back</h2>
+        <p className="auth-subtitle">Login to plan your next eco-friendly ride.</p>
+        
+        {error && <div className="error-msg">{error}</div>}
+        
+        <form onSubmit={handleLogin} className="auth-form">
+          <div className="input-group">
+            <label>Email Address</label>
+            <input 
+              type="email" 
+              placeholder="you@example.com" 
+              className="auth-input"
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              required 
+            />
+          </div>
+          <div className="input-group">
+            <label>Password</label>
+            <input 
+              type="password" 
+              placeholder="••••••••" 
+              className="auth-input"
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
+              required 
+            />
+          </div>
+          <button type="submit" className="auth-button primary">
+            Secure Login
+          </button>
+        </form>
+
+        <div className="auth-footer">
+          <p>Don't have an account? <Link to="/signup">Sign up for free</Link></p>
+          <div className="auth-divider"></div>
+          <p>Staff member? <Link to="/admin/login">Admin Login</Link></p>
+        </div>
+      </div>
     </div>
   );
 }

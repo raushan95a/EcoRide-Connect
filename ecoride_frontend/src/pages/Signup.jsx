@@ -29,20 +29,56 @@ function Signup() {
   };
 
   return (
-    <div className="auth-container" style={{ padding: "2rem", maxWidth: "400px", margin: "0 auto" }}>
-      <h2>Sign Up</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSignup} style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1rem" }}>
-        <input type="text" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} required style={{ padding: "0.5rem" }} />
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required style={{ padding: "0.5rem" }} />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required style={{ padding: "0.5rem" }} />
-        <button type="submit" style={{ padding: "0.5rem", background: "#4caf50", color: "#fff", border: "none" }}>
-          Sign Up
-        </button>
-      </form>
-      <p style={{ marginTop: "1rem" }}>
-        Already have an account? <Link to="/login">Login</Link>
-      </p>
+    <div className="auth-page">
+      <div className="auth-card">
+        <h2>Create Account</h2>
+        <p className="auth-subtitle">Join EcoRide and start sharing rides today.</p>
+        
+        {error && <div className="error-msg">{error}</div>}
+        
+        <form onSubmit={handleSignup} className="auth-form">
+          <div className="input-group">
+            <label>Full Name</label>
+            <input 
+              type="text" 
+              placeholder="John Doe" 
+              className="auth-input"
+              value={name} 
+              onChange={(e) => setName(e.target.value)} 
+              required 
+            />
+          </div>
+          <div className="input-group">
+            <label>Email Address</label>
+            <input 
+              type="email" 
+              placeholder="you@example.com" 
+              className="auth-input"
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              required 
+            />
+          </div>
+          <div className="input-group">
+            <label>Password</label>
+            <input 
+              type="password" 
+              placeholder="••••••••" 
+              className="auth-input"
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
+              required 
+            />
+          </div>
+          <button type="submit" className="auth-button primary">
+            Sign Up
+          </button>
+        </form>
+
+        <div className="auth-footer">
+          <p>Already have an account? <Link to="/login">Login here</Link></p>
+        </div>
+      </div>
     </div>
   );
 }

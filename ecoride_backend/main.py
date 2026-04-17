@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from data.seed_data import seed_all_data
+from store.in_memory_store import load_store, save_store
 from routers import analytics, carpool, drivers, rewards, rides, routes, sustainability, users, admin
 
 app = FastAPI(title="EcoRide Connect API", version="1.0.0")
@@ -17,7 +18,9 @@ app.add_middleware(
 
 @app.on_event("startup")
 def startup_event():
-    seed_all_data()
+    if not load_store():
+        seed_all_data()
+        save_store()
 
 
 app.include_router(users.router, prefix="/users", tags=["Users"])

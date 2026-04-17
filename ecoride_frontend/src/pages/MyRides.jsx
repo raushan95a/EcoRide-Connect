@@ -1,0 +1,94 @@
+// src/pages/MyRides.jsx
+import React, { useState, useEffect } from 'react';
+import DataTable from '../components/DataTable';
+import '../styles/index.css';
+
+const MyRides = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const storedUserId = localStorage.getItem("userId");
+  const userId =
+    !storedUserId || storedUserId === 'undefined' || storedUserId === 'null'
+      ? ''
+      : storedUserId;
+
+  useEffect(() => {
+    if (!userId) {
+      setError('Your session is invalid. Please login again.');
+      setLoading(false);
+      return;
+    }
+
+    fetch(`http://localhost:8000/rides/user/${userId}`)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Failed to fetch user rides');
+        }
+        return res.json();
+      })
+      .then(json => {
+        setData(json);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setError(err.message);
+        setLoading(false);
+      });
+  }, [userId]);
+
+  const columns = [
+    { label: 'ID', key: 'ride_id' },
+    { label: 'Driver ID', key: 'driver_id' },
+    { label: 'Start', key: 'source_location' },
+    { label: 'End', key: 'destination_location' },
+    { label: 'Distance', key: 'distance_km', render: (val) => `${val} km` },
+    { label: 'Fare', key: 'fare_amount', render: (val) => `$${val.toFixed(2)}` },
+    { 
+      label: 'Status', 
+      key: 'ride_status',
+      render: (val) => {
+        const normalizedVal = val ? val.toLowerCase() : '';
+        let bgColor = '#3b82f6'; // default blue
+        if (normalizedVal === 'completed') bgColor = '#10b981'; // green
+        if (normalizedVal === 'cancelled' || normalizedVal === 'canceled') bgColor = '#ef4444'; // red
+        if (normalizedVal === 'ongoing') bgColor = '#f59e0b'; // yellow
+
+        return (
+          <button 
+            style={{ 
+              backgroundColor: bgColor, 
+              color: 'white', 
+              border: 'none', 
+              padding: '6px 12px', 
+              borderRadius: '20px', 
+              cursor: 'pointer',
+              fontWeight: '500',
+              fontSize: '0.85rem',
+              textTransform: 'uppercase'
+            }}
+          >
+            {val || 'UNKNOWN'}
+          </button>
+        );
+      }
+    }
+  ];
+
+  if (loading) return <div className="page-container">Loading your rides...</div>;
+  if (error) return <div className="page-container">Error: {error}</div>;
+
+  return (
+    <div className="page-container">
+      <div className="header-container">
+        <h2>My Rides</h2>
+        <p className="subtitle">View your past and ongoing rides.</p>
+      </div>
+      <DataTable columns={columns} data={data} />
+    </div>
+  );
+};
+
+export default MyRides;

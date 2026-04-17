@@ -4,6 +4,8 @@ import { getAnalyticsReport, getSustainabilityReport, getAllUsers, getAllDrivers
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
 const Dashboard = () => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [data, setData] = useState({
     analytics: null,
     sustainability: null,
@@ -28,12 +30,16 @@ const Dashboard = () => {
         });
       } catch (error) {
         console.error("Error fetching dashboard data", error);
+        setError("Failed to load dashboard data. Please try again.");
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
   }, []);
 
-  if (!data.analytics) return <div className="page-container">Loading Dashboard...</div>;
+  if (loading) return <div className="page-container">Loading Dashboard...</div>;
+  if (error) return <div className="page-container">{error}</div>;
 
   const barData = [
     { name: "SRM - Guntur", rides: 8 },

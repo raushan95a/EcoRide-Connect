@@ -62,7 +62,11 @@ def book_ride(ride_data: dict) -> dict:
         ride_data["distance_km"], driver["fuel_type"], ride_data["num_passengers"]
     )
 
-    ride_status = "Completed" if random.random() < 0.85 else "Cancelled"
+    forced_pending = bool(ride_data.get("force_pending"))
+    if forced_pending:
+        ride_status = "Pending"
+    else:
+        ride_status = "Completed" if random.random() < 0.85 else "Cancelled"
     if ride_status == "Cancelled":
         driver["cancellation_count"] += 1
         refresh_driver_status(driver["driver_id"])
@@ -103,16 +107,24 @@ def book_ride(ride_data: dict) -> dict:
     )
     store.rides_list.append(ride_record)
     store.rides_dict[ride_data["ride_id"]] = ride_record
+    if ride_status == "Completed":
+        payment_status = "Paid"
+    elif ride_status == "Cancelled":
+        payment_status = "Refund Pending"
+    else:
+        payment_status = "Payment Pending"
+
     store.payments_list.append(
         {
             "ride_id": ride_data["ride_id"],
             "user_id": ride_data["user_id"],
             "payment_mode": ride_data["payment_mode"],
             "fare_amount": fare_amount,
-            "status": "Paid" if ride_status == "Completed" else "Refund Pending",
+            "status": payment_status,
         }
     )
     refresh_user_status(user["user_id"])
+    store.save_store()
     return ride_record
 
 

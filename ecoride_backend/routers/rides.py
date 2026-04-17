@@ -10,7 +10,10 @@ router = APIRouter()
 
 @router.post("/book")
 def create_ride(ride: RideCreate):
-    return book_ride(ride.model_dump())
+    ride_payload = ride.model_dump()
+    # Rides booked from the user flow should start in Pending state.
+    ride_payload["force_pending"] = True
+    return book_ride(ride_payload)
 
 
 @router.post("/{ride_id}/cancel")
@@ -27,7 +30,8 @@ def list_rides():
 def get_user_ride_history(user_id: str):
     ride_ids = store.user_ride_history_dict.get(user_id)
     if ride_ids is None:
-        raise HTTPException(status_code=404, detail="User ride history not found")
+        # Default to an empty list instead of throwing an error for a user with zero rides
+        return []
     return [store.rides_dict[ride_id] for ride_id in ride_ids if ride_id in store.rides_dict]
 
 
