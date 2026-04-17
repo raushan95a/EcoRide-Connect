@@ -21,7 +21,7 @@ const Dashboard = () => {
           getAllDrivers(),
         ]);
         setData({
-          analytics: analyticsRes.data.report,
+          analytics: analyticsRes.data,
           sustainability: sustainabilityRes.data,
           usersCount: usersRes.data.length,
           driversCount: driversRes.data.length,
@@ -51,11 +51,11 @@ const Dashboard = () => {
     <div>
       <h2>Dashboard</h2>
       <div className="grid-cols-2" style={{ gap: "1rem", marginBottom: "2rem" }}>
-        <StatCard title="Total Rides" value={data.analytics.total_rides_processed} color="var(--primary-color)" />
+        <StatCard title="Total Rides" value={data.analytics.total_rides} color="var(--primary-color)" />
         <StatCard title="Average Distance" value={data.analytics.average_distance_km} unit="km" color="var(--accent-color)" />
-        <StatCard title="Total CO2 Emitted" value={data.sustainability.total_metrics.total_emissions_kg} unit="kg" color="var(--warning-color)" />
-        <StatCard title="Eco-Friendly Rides" value={data.analytics.eco_friendly_rides_count} color="var(--success-color)" />
-        <StatCard title="Cancelled Rides" value={data.analytics.cancelled_rides_count} color="var(--danger-color)" />
+        <StatCard title="Total CO2 Emitted" value={data.sustainability.total_co2_emitted_kg} unit="kg" color="var(--warning-color)" />
+        <StatCard title="Eco-Friendly Rides" value={data.analytics.eco_friendly_rides} color="var(--success-color)" />
+        <StatCard title="Cancelled Rides" value={data.analytics.cancelled_rides} color="var(--danger-color)" />
       </div>
 
       <div className="grid-cols-2">

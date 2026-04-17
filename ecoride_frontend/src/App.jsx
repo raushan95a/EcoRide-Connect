@@ -1,9 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
 import Drivers from "./pages/Drivers";
 import Analytics from "./pages/Analytics";
+import Rides from "./pages/Rides";
+import RoutesPage from "./pages/Routes";
+import Carpool from "./pages/Carpool";
+import Sustainability from "./pages/Sustainability";
+import Rewards from "./pages/Rewards";
 import React from 'react';
 
 function App() {
@@ -12,14 +18,15 @@ function App() {
       <Navbar />
       <div className="main-content">
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/users" element={<Users />} />
           <Route path="/drivers" element={<Drivers />} />
-          <Route path="/rides" element={<div>Rides coming soon</div>} />
-          <Route path="/routes" element={<div>Routes coming soon</div>} />
-          <Route path="/carpool" element={<div>Carpool coming soon</div>} />
-          <Route path="/sustainability" element={<div>Sustainability coming soon</div>} />
-          <Route path="/rewards" element={<div>Rewards coming soon</div>} />
+          <Route path="/rides" element={<Rides />} />
+          <Route path="/routes" element={<RoutesPage />} />
+          <Route path="/carpool" element={<Carpool />} />
+          <Route path="/sustainability" element={<Sustainability />} />
+          <Route path="/rewards" element={<Rewards />} />
           <Route path="/analytics" element={<Analytics />} />
         </Routes>
       </div>

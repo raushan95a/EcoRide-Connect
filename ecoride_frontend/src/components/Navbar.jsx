@@ -3,17 +3,20 @@ import "../styles/index.css";
 
 const Navbar = () => {
   return (
-    <nav style={{ background: "var(--grad-dark)", padding: "1rem" }}>
-      <ul style={{ display: "flex", gap: "1.5rem", listStyle: "none", color: "white", margin: 0, padding: 0 }}>
-        <li><NavLink to="/" style={{ color: "white", textDecoration: "none" }}>🏠 Dashboard</NavLink></li>
-        <li><NavLink to="/users" style={{ color: "white", textDecoration: "none" }}>👤 Users</NavLink></li>
-        <li><NavLink to="/drivers" style={{ color: "white", textDecoration: "none" }}>🚗 Drivers</NavLink></li>
-        <li><NavLink to="/rides" style={{ color: "white", textDecoration: "none" }}>🛣️ Rides</NavLink></li>
-        <li><NavLink to="/routes" style={{ color: "white", textDecoration: "none" }}>📍 Routes</NavLink></li>
-        <li><NavLink to="/carpool" style={{ color: "white", textDecoration: "none" }}>🤝 Carpool</NavLink></li>
-        <li><NavLink to="/sustainability" style={{ color: "white", textDecoration: "none" }}>🌿 Sustainability</NavLink></li>
-        <li><NavLink to="/rewards" style={{ color: "white", textDecoration: "none" }}>🎁 Rewards</NavLink></li>
-        <li><NavLink to="/analytics" style={{ color: "white", textDecoration: "none" }}>📊 Analytics</NavLink></li>
+    <nav className="navbar">
+      <div className="nav-brand">
+        <NavLink to="/">EcoRide</NavLink>
+      </div>
+      <ul className="nav-links">
+        <li><NavLink to="/dashboard" className={({ isActive }) => isActive ? "active" : ""}>Dashboard</NavLink></li>
+        <li><NavLink to="/users" className={({ isActive }) => isActive ? "active" : ""}>Users</NavLink></li>
+        <li><NavLink to="/drivers" className={({ isActive }) => isActive ? "active" : ""}>Drivers</NavLink></li>
+        <li><NavLink to="/rides" className={({ isActive }) => isActive ? "active" : ""}>Rides</NavLink></li>
+        <li><NavLink to="/routes" className={({ isActive }) => isActive ? "active" : ""}>Routes</NavLink></li>
+        <li><NavLink to="/carpool" className={({ isActive }) => isActive ? "active" : ""}>Carpool</NavLink></li>
+        <li><NavLink to="/sustainability" className={({ isActive }) => isActive ? "active" : ""}>Sustainability</NavLink></li>
+        <li><NavLink to="/rewards" className={({ isActive }) => isActive ? "active" : ""}>Rewards</NavLink></li>
+        <li><NavLink to="/analytics" className={({ isActive }) => isActive ? "active" : ""}>Analytics</NavLink></li>
       </ul>
     </nav>
   );
