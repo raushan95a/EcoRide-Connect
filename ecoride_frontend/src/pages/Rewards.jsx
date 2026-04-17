@@ -29,13 +29,18 @@ const Rewards = () => {
     { key: 'user_id', label: 'User ID' },
   ];
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className="page-container">Loading rewards...</div>;
 
   return (
-    <div>
-      <h2>Rewards & Discounts</h2>
-      <p>Users eligible for sustainability rewards.</p>
-      <DataTable columns={columns} data={winners} />
+    <div className="page-container">
+      <div className="header-container">
+        <h2>Rewards & Discounts</h2>
+        <p className="subtitle">Users eligible for sustainability rewards based on their green commute history.</p>
+      </div>
+      <div className="card">
+        <h3 style={{ marginBottom: '1.5rem', fontSize: '1.25rem' }}>Discount Winners</h3>
+        <DataTable columns={columns} data={winners} />
+      </div>
     </div>
   );
 };

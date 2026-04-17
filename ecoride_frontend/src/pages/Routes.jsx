@@ -35,12 +35,18 @@ const RoutesPage = () => {
     { key: 'count', label: 'Ride Count' }
   ];
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className="page-container">Loading routes...</div>;
 
   return (
-    <div>
-      <h2>Popular Routes</h2>
-      <DataTable columns={columns} data={routes} />
+    <div className="page-container">
+      <div className="header-container">
+        <h2>Popular Routes Analysis</h2>
+        <p className="subtitle">Discover our most frequent and in-demand travel routes.</p>
+      </div>
+      <div className="card">
+        <h3 style={{ marginBottom: '1.5rem', fontSize: '1.25rem' }}>Top Routes Directory</h3>
+        <DataTable columns={columns} data={routes} />
+      </div>
     </div>
   );
 };

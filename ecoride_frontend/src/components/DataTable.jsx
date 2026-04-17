@@ -29,7 +29,7 @@ const DataTable = ({ columns, data, onRowClick }) => {
             >
               {columns.map((col, colIndex) => (
                 <td key={colIndex} style={{ padding: '12px 16px', color: 'var(--text-primary)' }}>
-                  {row[col.key]}
+                  {col.render ? col.render(row[col.key], row) : row[col.key]}
                 </td>
               ))}
             </tr>

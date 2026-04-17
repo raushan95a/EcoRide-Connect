@@ -10,6 +10,9 @@ import RoutesPage from "./pages/Routes";
 import Carpool from "./pages/Carpool";
 import Sustainability from "./pages/Sustainability";
 import Rewards from "./pages/Rewards";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import AdminLogin from "./pages/AdminLogin";
 import React from 'react';
 
 function App() {
@@ -19,6 +22,9 @@ function App() {
       <div className="main-content">
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/users" element={<Users />} />
           <Route path="/drivers" element={<Drivers />} />

@@ -33,7 +33,7 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
-  if (!data.analytics) return <div>Loading Dashboard...</div>;
+  if (!data.analytics) return <div className="page-container">Loading Dashboard...</div>;
 
   const barData = [
     { name: "SRM - Guntur", rides: 8 },
@@ -45,15 +45,19 @@ const Dashboard = () => {
     { name: "Solo", value: 300 },
     { name: "Carpool", value: 150 },
   ];
-  const pieColors = ["#FF7A18", "#00C9A7"];
+  const pieColors = ["#3B82F6", "#10B981"];
 
   return (
-    <div>
-      <h2>Dashboard</h2>
-      <div className="grid-cols-2" style={{ gap: "1rem", marginBottom: "2rem" }}>
+    <div className="page-container">
+      <div className="header-container">
+        <h2>Dashboard</h2>
+        <p className="subtitle">Welcome back. Here is the latest system overview.</p>
+      </div>
+
+      <div className="stat-grid" style={{ marginBottom: "2rem" }}>
         <StatCard title="Total Rides" value={data.analytics.total_rides} color="var(--primary-color)" />
-        <StatCard title="Average Distance" value={data.analytics.average_distance_km} unit="km" color="var(--accent-color)" />
-        <StatCard title="Total CO2 Emitted" value={data.sustainability.total_co2_emitted_kg} unit="kg" color="var(--warning-color)" />
+        <StatCard title="Average Distance" value={data.analytics.average_distance_km} unit="km" color="var(--primary-color)" />
+        <StatCard title="Total CO2 Emitted" value={data.sustainability?.total_co2_emitted_kg || 0} unit="kg" color="var(--warning-color)" />
         <StatCard title="Eco-Friendly Rides" value={data.analytics.eco_friendly_rides} color="var(--success-color)" />
         <StatCard title="Cancelled Rides" value={data.analytics.cancelled_rides} color="var(--danger-color)" />
       </div>

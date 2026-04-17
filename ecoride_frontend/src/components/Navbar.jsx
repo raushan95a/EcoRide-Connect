@@ -3,9 +3,14 @@ import "../styles/index.css";
 
 const Navbar = () => {
   return (
-    <nav className="navbar">
+    <nav className="navbar" style={{ padding: '1rem 3rem', borderBottom: '1px solid var(--border-color)', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
       <div className="nav-brand">
-        <NavLink to="/">EcoRide</NavLink>
+        <NavLink to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: '#1E293B' }}>
+          <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'var(--primary-color)', display: 'grid', placeItems: 'center', color: 'white', fontWeight: 'bold' }}>
+            E
+          </div>
+          EcoRide
+        </NavLink>
       </div>
       <ul className="nav-links">
         <li><NavLink to="/dashboard" className={({ isActive }) => isActive ? "active" : ""}>Dashboard</NavLink></li>
